@@ -26,6 +26,10 @@ const mongoose = require('mongoose');
     location: String,
     occupation:String,
     picture:String,
+    password:{
+      required:true,
+      type:String
+    },
     child: [ { type : Schema.Types.ObjectId, ref: 'Child' } ],
     activity: [ { type : Schema.Types.ObjectId, ref: 'Activity' } ]
   })

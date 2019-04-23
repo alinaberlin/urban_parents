@@ -8,6 +8,8 @@ const hbs          = require('hbs');
 const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const path         = require('path');
+var flash          = require('connect-flash');
+
 
 //initialization of mongodb conection
 mongoose
@@ -29,6 +31,8 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(flash());
+
 
 // Express View engine setup
 
@@ -53,6 +57,8 @@ app.locals.title = 'Express - Generated with IronGenerator';
 
 const index = require('./routes/index');
 const details = require('./routes/details')
+const auth = require('./routes/auth')
+app.use('/', auth);
 app.use('/', index);
 app.use('/', details);
 
