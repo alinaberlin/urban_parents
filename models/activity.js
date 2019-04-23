@@ -1,30 +1,19 @@
-const mongoose   = require('mongoose');
-const enumValues = require('mongoose-enumvalues');
-const { Schema } = mongoose;
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+
 const activitySchema = new Schema({
-  
-  name: {
-    type: String,
-    enum: ['playdate', 'cycling', 'swimming', 'running', 'cooking', 'museum'],
-    
-  },
-  location: {
-    type: String,
-    required: true
-  },
-  meettime: {
-    type: time,
-    required: true
-  },
-  meetDate: {
-    type: time,
-    required: true
-  }
+    location: {
+        required: true,
+        type: String
+    },
+    activityType: {
+        required: true,
+        type: String
+    },
+    time: {
+        required: true,
+        type: Date
+    }
 });
- 
-// specifics for each method below
-const enumOptions = {};
- 
-UserSchema.plugin(enumValues, enumOptions);
- 
-module.exports = mongoose.model('activity', activitySchema);
+const Activity = mongoose.model("Activity", activitySchema);
+module.exports = Activity;

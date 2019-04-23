@@ -22,7 +22,7 @@ router.post('/places', (req, res, next) => {
       Country: country
     }
   }
-  axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${address}%20${postcode}%20${city}.json?types=address&access_token=`)
+  axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${address}%20${postcode}%20${city}.json?types=address&access_token=${process.env.key2}`)
   .then(response => {
     const data = response.data
     obj.location.Coordinates = data.features[0].geometry.coordinates

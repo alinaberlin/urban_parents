@@ -12,7 +12,7 @@
   <p>Picture: {{parent.pictureUrl}}</p>
   <button onclick="addChild()">Add child</button>
   <button onclick="addActivity()">Add activity</button>
-  <button onclick="/add-places">Add Places</button>
+  <a href="/add-places" class="btn btn-danger">Add Places</a>
   <ul>
     {{#each matches}}
     <li>{{ this.firstName }} {{ this.lastName }}</li>
