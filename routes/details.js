@@ -17,7 +17,7 @@ router.get("/registration", ensureLogin.ensureLoggedIn(), (req, res, next) => {
 router.post("/parent", ensureLogin.ensureLoggedIn(), (req, res, next) => {
     const currentParent = req.user;
     const { username, firstName, lastName, age, email, language, nationality, gender, location, ocupation, pictureUrl } = req.body;
-    const newParent = new Parent({
+    const newParent = Object.assign(currentParent, {
         username,
         firstName,
         lastName,
