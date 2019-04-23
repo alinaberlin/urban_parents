@@ -20,7 +20,28 @@ const parentSchema = new Schema({
     gender: String,
     language: String,
     nationality: String,
-    location: String,
+    location: {
+        type: {
+            String,
+            enum: ["Point"],
+            default: "Point"
+        },
+        Coordinates: {
+            type: [Number]
+        },
+        Address: {
+            type: String
+        },
+        Postcode: {
+            type: Number
+        },
+        City: {
+            type: String
+        },
+        Country: {
+            type: String
+        }
+    },
     occupation: String,
     picture: String,
     password: {
