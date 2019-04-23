@@ -6,6 +6,7 @@ const router = express.Router();
 // Bcrypt to encrypt passwords
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
+const Parent = require('../models/parent')
 
 
 router.get("/login", (req, res, next) => {
@@ -26,12 +27,13 @@ router.get("/signup", (req, res, next) => {
 router.post("/signup", (req, res, next) => {
   const username = req.body.username;
   const password = req.body.password;
-  if (username === "" || password === "") {
+  const email  = req.body.paswword
+  if (username === "" || password === "" || email ==="") {
     res.render("signup", { message: "Indicate username and password" });
     return;
   }
 
-  User.findOne({ username }, "username", (err, user) => {
+  Parent.findOne({ username }, "username", (err, user) => {
     if (user !== null) {
       res.render("signup", { message: "The username already exists" });
       return;
@@ -40,12 +42,13 @@ router.post("/signup", (req, res, next) => {
     const salt = bcrypt.genSaltSync(bcryptSalt);
     const hashPass = bcrypt.hashSync(password, salt);
 
-    const newUser = new User({
+    const newParent = new Parent({
       username,
+      email,
       password: hashPass
     });
 
-    newUser.save()
+    newParent.save()
     .then(() => {
       res.redirect("/");
     })
