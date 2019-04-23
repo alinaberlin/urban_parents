@@ -6,13 +6,12 @@
   <p>Language: {{parent.language}}</p>
   <p>Nationality: {{parent.nationality}}</p>
   <p>Gender: {{parent.gender}}</p>
-  {{!-- <p>Location: {{ parent.location}}</p> --}}
+  <p>Location: {{ parent.location}}</p>
   <p>Ocupation: {{parent.ocupation}}</p>
   <p>Activity: {{parent.activity}}</p>
   <p>Picture: {{parent.pictureUrl}}</p>
   <button onclick="addChild()">Add child</button>
   <button onclick="addActivity()">Add activity</button>
-  <a href="/add-places" class="btn btn-danger">Add Places</a>
   <ul>
     {{#each matches}}
     <li>{{ this.firstName }} {{ this.lastName }}</li>

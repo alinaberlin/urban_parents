@@ -23,9 +23,13 @@ const mongoose = require('mongoose');
     gender: String,
     language: String,
     nationality: String,
-    // location: [ { type : Schema.Types.ObjectId, ref: 'Place' } ],
+    location: String,
     occupation:String,
     picture:String,
+    password:{
+      required:true,
+      type:String
+    },
     child: [ { type : Schema.Types.ObjectId, ref: 'Child' } ],
     activity: [ { type : Schema.Types.ObjectId, ref: 'Activity' } ]
   })
