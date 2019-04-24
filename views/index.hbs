@@ -1,4 +1,4 @@
-<h1>List of coffee shop and bookstore nearby</h1>
+
 <div id='map' style='width: 1000px; height: 300px;'></div>
 
 
@@ -7,7 +7,9 @@
   mapboxgl.accessToken = 'pk.eyJ1IjoiYW5nbWluc2hlbmciLCJhIjoiY2pydDhjMjlwMXhpaDN5cHMxcjNya2ZmbyJ9.Tc5kmo0vZ1VKJbLK83OloA';
   var map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v11'
+    style: 'mapbox://styles/mapbox/streets-v11',
+    center: [52.506678, 13.373153], // starting position [lng, lat]
+    zoom: 7 // starting zoom
   });
 
   var markerHeight = 20, markerRadius = 3, linearOffset = 10;

@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const Place = require('../models/place.js')
+const Place = require('../models/Place')
 const axios = require('axios')
+require('dotenv').config()
 
 router.get('/places', (req, res, next) => {
   Place.find()
@@ -27,7 +28,6 @@ router.post('/places', (req, res, next) => {
     const data = response.data
     obj.location.Coordinates = data.features[0].geometry.coordinates
     Place.create(obj). then(() => {
-            
       res.redirect('/add-places') 
     })
   })
