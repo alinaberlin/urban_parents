@@ -10,14 +10,17 @@ const { getReverseGeoCoding } = require("../lib/services");
 // parent route
 router.get("/registration", ensureLogin.ensureLoggedIn(), (req, res, next) => {
     const currentParent = req.user;
+    const isLoggedIn = req.user ? true : false;
     res.render("parent", {
-        parent: currentParent
+        parent: currentParent,
+        isLoggedIn: isLoggedIn
     });
 });
 
 router.get("/parent", ensureLogin.ensureLoggedIn(), async (req, res, next) => {
     const currentParent = req.user;
-    res.render("parent_details", { parent: currentParent });
+    const isLoggedIn = req.user ? true : false;
+    res.render("parent_details", { parent: currentParent, isLoggedIn: isLoggedIn });
 });
 router.post("/parent", ensureLogin.ensureLoggedIn(), async (req, res, next) => {
     const currentParent = req.user;

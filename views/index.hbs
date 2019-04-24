@@ -1,13 +1,15 @@
-<h1>List of coffee shop and bookstore nearby</h1>
+<h1>List of Parents nearby</h1>
 <div id='map' style='width: 1000px; height: 300px;'></div>
 
 
 <script>
-  {{!-- require('dotenv').config() --}}
+
   mapboxgl.accessToken = 'pk.eyJ1IjoiYW5nbWluc2hlbmciLCJhIjoiY2pydDhjMjlwMXhpaDN5cHMxcjNya2ZmbyJ9.Tc5kmo0vZ1VKJbLK83OloA';
   var map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v11'
+    style: 'mapbox://styles/mapbox/streets-v11',
+    center: [52.5065133, 13.1445535], // starting position [lng, lat]
+    zoom: 7 // starting zoom
   });
 
   var markerHeight = 20, markerRadius = 3, linearOffset = 10;
@@ -25,21 +27,28 @@
 
   axios.get('/places')
     .then((response) => {
-      let places = response.data
-      places.forEach((place) => {
-        let coordinate = place.location.Coordinates
-        var marker = new mapboxgl.Marker()
-          .setLngLat(coordinate)
-          .addTo(map);
+      axios.get('/parentjson')
+        .then((pop) => {
+          console.log(pop)
+          let places = response.data
+          let pops = pop.data
 
-        var popup = new mapboxgl.Popup({ offset: popupOffsets, className: 'my-class' })
-          .setLngLat(coordinate)
-          .setHTML(`<h4>${place.name}</h4>  <h4>${place.email}</h4>`)
-          .addTo(map);
-      })
+          places.forEach((place) => {
+            pops.forEach(pop => {
+              let coordinate = place.location.Coordinates
+              let age = pop.age
+              var marker = new mapboxgl.Marker()
+                .setLngLat(coordinate)
+                .addTo(map);
+              var popup = new mapboxgl.Popup({ offset: popupOffsets, className: 'my-class' })
+                .setLngLat(coordinate)
+                .setHTML(`<h4>${place.name} ${pop.age} </h4>`)
+                .addTo(map);
+            })
+          })
+        })
     })
+
+
+
 </script>
-
-  
- 
-
