@@ -5,6 +5,7 @@ const Parent = require("../models/parent");
 const Child = require("../models/child");
 const Activity = require("../models/activity");
 const ensureLogin = require("connect-ensure-login");
+const { getReverseGeoCoding } = require("../lib/services");
 
 // parent route
 router.get("/registration", ensureLogin.ensureLoggedIn(), (req, res, next) => {
@@ -14,9 +15,38 @@ router.get("/registration", ensureLogin.ensureLoggedIn(), (req, res, next) => {
     });
 });
 
-router.post("/parent", ensureLogin.ensureLoggedIn(), (req, res, next) => {
+router.get("/parent", ensureLogin.ensureLoggedIn(), async (req, res, next) => {
     const currentParent = req.user;
-    const { username, firstName, lastName, age, email, language, nationality, gender, location, ocupation, pictureUrl } = req.body;
+    res.render("parent_details", { parent: currentParent });
+});
+router.post("/parent", ensureLogin.ensureLoggedIn(), async (req, res, next) => {
+    const currentParent = req.user;
+    const {
+        username,
+        firstName,
+        lastName,
+        age,
+        email,
+        language,
+        nationality,
+        gender,
+        address,
+        postcode,
+        city,
+        country,
+        ocupation,
+        pictureUrl
+    } = req.body;
+    const location = {
+        type: "Point",
+        Address: address,
+        Postcode: postcode,
+        City: city,
+        Country: country
+    };
+    const response = await getReverseGeoCoding(address, postcode, city, next);
+    const data = response.data;
+    location.Coordinates = data.features[0].geometry.coordinates;
     const newParent = Object.assign(currentParent, {
         username,
         firstName,
