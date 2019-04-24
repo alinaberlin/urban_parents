@@ -19,6 +19,7 @@
     "dotenv": "^6.2.0",
     "express": "^4.16.3",
     "express-session": "^1.16.1",
+    "express-ws": "^4.0.0",
     "flash": "^1.1.0",
     "hbs": "^4.0.1",
     "mongoose": "^5.2.10",
@@ -28,7 +29,8 @@
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "serve-favicon": "^2.5.0",
-    "uuid": "^3.3.2"
+    "uuid": "^3.3.2",
+    "ws": "^6.2.1"
   },
   "devDependencies": {
     "nodemon": "^1.12.1"

@@ -1,0 +1,18 @@
+<div id="messages">
+
+</div>
+<div>
+  <textarea id="chat"></textarea>
+  <button onclick="sendMessage()">Send</button>
+</div>
+<script>
+  const wsClient = new WebSocket("ws://localhost:3000");
+  wsClient.onmessage = function (event) {
+    const pEl = document.createElement("p");
+    pEl.innerText = event.data;
+    document.getElementById("messages").appendChild(pEl);
+  };
+  function sendMessage() {
+    wsClient.send(document.getElementById("chat").value);
+  }
+</script>
