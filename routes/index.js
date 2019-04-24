@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Place = require('../models/place.js')
+const Place = require('../models/Place.js')
 
 /* GET home page */
 router.get('/', (req, res, next) => {
