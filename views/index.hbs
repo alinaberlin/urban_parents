@@ -34,7 +34,7 @@
 
         var popup = new mapboxgl.Popup({ offset: popupOffsets, className: 'my-class' })
           .setLngLat(coordinate)
-          .setHTML(`<h4>${place.name}</h4>`)
+          .setHTML(`<h4>${place.name}</h4>  <h4>${place.email}</h4>`)
           .addTo(map);
       })
     })
