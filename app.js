@@ -76,7 +76,7 @@ const index = require("./routes/index");
 const details = require("./routes/details");
 const auth = require("./routes/auth");
 const api = require("./routes/api");
-
+const ws = require("./routes/ws");
 
 app.use("/", ws);
 app.use("/", auth);
