@@ -50,7 +50,6 @@ const parentSchema = new Schema({
   },
   child: [{ type: Schema.Types.ObjectId, ref: "Child" }],
   activity: [{ type: Schema.Types.ObjectId, ref: "Activity" }]
-  //   place: [{ type: Schema.Types.ObjectId, ref: "Place" }]
 });
 
 const Parent = mongoose.model("Parent", parentSchema);
