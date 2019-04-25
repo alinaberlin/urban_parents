@@ -7,6 +7,7 @@ router.get("/chat", ensureLogin.ensureLoggedIn(), async (req, res, next) => {
     const isLoggedIn = req.user ? true : false;
     res.render("chat", { isLoggedIn: isLoggedIn });
 });
+
 router.ws("/message", function(ws, req) {
     ws.on("message", function(msg) {
         ws.send(msg);

@@ -30,6 +30,7 @@
     "passport-local": "^1.0.0",
     "serve-favicon": "^2.5.0",
     "uuid": "^3.3.2",
+    "websocket": "^1.0.28",
     "ws": "^6.2.1"
   },
   "devDependencies": {

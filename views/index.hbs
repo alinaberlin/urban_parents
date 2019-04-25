@@ -36,7 +36,6 @@
           places.forEach((place) => {
             pops.forEach(pop => {
               let coordinate = place.location.Coordinates
-              let age = pop.age
               var marker = new mapboxgl.Marker()
                 .setLngLat(coordinate)
                 .addTo(map);
