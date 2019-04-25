@@ -6,9 +6,8 @@
   <button onclick="sendMessage()">Send</button>
 </div>
 <script>
-  const ws = new WebSocket('ws://localhost:3001/message/websocket')
-  
-
+  const wsUrl = 'ws://' + window.location.host
+  const ws = new WebSocket(wsUrl.replace('3000', '3001'))
 
   ws.onmessage = function (e) {
     const pEl = document.createElement("p");
@@ -20,18 +19,14 @@
 
   ws.onopen = function () {
     console.log('opening...')
-    ws.send('hello server')
   }
 
   ws.onerror = function (error) {
     console.log('WEbSocket error ' + error)
     console.dir(error)
   }
-   function sendMessage() {
+  function sendMessage() {
     ws.send(document.getElementById("chat").value);
-    
-    //ws.send(document.getElementById("chat").value.(JSON.stringify('it works! Yeeee! :'));
-   
   }
 
    
