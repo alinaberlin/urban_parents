@@ -8,8 +8,8 @@
   var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v11',
-    center: [52.5065133, 13.1445535], // starting position [lng, lat]
-    zoom: 7 // starting zoom
+    center: [13.14, 52.5], // starting position [lng, lat]
+    zoom: 9 // starting zoom
   });
 
   var markerHeight = 20, markerRadius = 3, linearOffset = 10;
@@ -42,7 +42,7 @@
                 .addTo(map);
               var popup = new mapboxgl.Popup({ offset: popupOffsets, className: 'my-class' })
                 .setLngLat(coordinate)
-                .setHTML(`<h4>${place.name} ${pop.age} </h4>`)
+                .setHTML(`<h4>${place.name}</h4>`)
                 .addTo(map);
             })
           })
