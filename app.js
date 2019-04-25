@@ -31,6 +31,8 @@ const debug = require("debug")(`${app_name}:${path.basename(__filename).split(".
 //express server instance
 const app = express();
 
+
+
 // Middleware Setup
 app.use(logger("dev"));
 app.use(bodyParser.json());
@@ -85,5 +87,17 @@ app.use("/", auth);
 app.use("/", index);
 app.use("/", details);
 app.use("/", api);
+const WebSocket = require('ws')
+
+const wss = new WebSocket.Server({ port: 3001 })
+
+wss.on('connection', ws => {
+  ws.on('message', message => {
+    console.log(`Received message => ${message}`)
+    ws.send(message)
+  })
+
+})
+
 
 module.exports = app;
