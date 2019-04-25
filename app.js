@@ -86,11 +86,4 @@ app.use("/", index);
 app.use("/", details);
 app.use("/", api);
 
-wss.on("connection", ws => {
-    ws.on("message", message => {
-        console.log(`Received message => ${message}`);
-        ws.send(message);
-    });
-});
-
 module.exports = app;
