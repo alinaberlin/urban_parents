@@ -9,8 +9,8 @@
   <link rel="stylesheet" href="/stylesheets/style.css" />
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <script src='https://api.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.js'></script>
-  <link href='https://api.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.css' rel='stylesheet' />
+  <link href='https://api.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.css' rel='stylesheet' />
+  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.js'></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
 </head>
 
@@ -18,10 +18,13 @@
 
   <nav>
     <a href="/" class="btn btn-danger">Home</a>
-    <a href="/login" class="btn btn-danger">Login</a>
-    <a href="/signup" class="btn btn-danger">Signup</a>
-    <a href="/auth/logout" class="btn btn-danger">Logout</a>
 
+    {{#if isLoggedIn}}
+    <a href="/logout" class="btn btn-danger">Logout</a>
+    {{else}}
+    <a href="/login" class="btn btn-danger">Login</a>
+    <a href="/signup" class="btn  btn-danger">Signup</a>
+    {{/if}}
   </nav>
   {{{body}}}
 

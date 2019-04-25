@@ -1,0 +1,45 @@
+<div id="messages">
+
+</div>
+<div>
+  <textarea id="chat"></textarea>
+  <button onclick="sendMessage()">Send</button>
+</div>
+<script>
+  const wsUrl = 'ws://' + window.location.host
+  const ws = new WebSocket(wsUrl.replace('3000', '3001'))
+
+  ws.onmessage = function (e) {
+    const pEl = document.createElement("p");
+    console.log(e)
+    pEl.innerText = e.data;
+    document.getElementById("messages").appendChild(pEl);
+  }
+  
+
+  ws.onopen = function () {
+    console.log('opening...')
+  }
+
+  ws.onerror = function (error) {
+    console.log('WEbSocket error ' + error)
+    console.dir(error)
+  }
+  function sendMessage() {
+    ws.send(document.getElementById("chat").value);
+  }
+
+   
+</script>
+{{!-- {
+    {
+      !--wsClient.onmessage = function (event) {
+        const pEl = document.createElement("p");
+        console.log(event)
+        pEl.innerText = event.data;
+        document.getElementById("messages").appendChild(pEl);
+      };
+      function sendMessage() {
+        wsClient.send(document.getElementById("chat").value);
+      } --}
+  } --}}
