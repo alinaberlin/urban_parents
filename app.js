@@ -14,9 +14,11 @@ const MongoStore = require("connect-mongo")(session);
 const flash = require("connect-flash");
 const passport = require("passport");
 
+const mongoConnectURI = process.env.ENVIRONMENT === "dev" ? "mongodb://localhost/urban-parents" : process.env.MONGODB_URI;
+
 //initialization of mongodb conection
 mongoose
-    .connect("mongodb://localhost/urban-parents", { useNewUrlParser: true })
+    .connect(mongoConnectURI, { useNewUrlParser: true })
     .then(x => {
         console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`);
     })
@@ -30,7 +32,7 @@ const debug = require("debug")(`${app_name}:${path.basename(__filename).split(".
 const app = express();
 
 // Middleware Setup
-app.use(logger('dev'));
+app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -55,10 +57,10 @@ app.use(
     })
 );
 
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "hbs");
+app.use(express.static(path.join(__dirname, "public")));
+app.use(favicon(path.join(__dirname, "public", "images", "favicon.ico")));
 
 hbs.registerHelper("ifUndefined", (value, options) => {
     if (arguments.length < 2) throw new Error("Handlebars Helper ifUndefined needs 1 parameter");
@@ -84,16 +86,11 @@ app.use("/", index);
 app.use("/", details);
 app.use("/", api);
 
-const WebSocket = require('ws')
-
-const wss = new WebSocket.Server({ port: 3001 })
-
-wss.on('connection', ws => {
-  ws.on('message', message => {
-    console.log(`Received message => ${message}`)
-    ws.send(message)
-  })
-
-})
+wss.on("connection", ws => {
+    ws.on("message", message => {
+        console.log(`Received message => ${message}`);
+        ws.send(message);
+    });
+});
 
 module.exports = app;
