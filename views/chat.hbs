@@ -6,12 +6,17 @@
   <button onclick="sendMessage()">Send</button>
 </div>
 <script>
-  const wsUrl = 'ws://' + window.location.host
-  const ws = new WebSocket(wsUrl + '/message/websocket')
+  const ws = new WebSocket('ws://localhost:3001/message/websocket')
+  
+
 
   ws.onmessage = function (e) {
-    console.log(e.data)
+    const pEl = document.createElement("p");
+    console.log(e)
+    pEl.innerText = e.data;
+    document.getElementById("messages").appendChild(pEl);
   }
+  
 
   ws.onopen = function () {
     console.log('opening...')
@@ -22,7 +27,14 @@
     console.log('WEbSocket error ' + error)
     console.dir(error)
   }
+   function sendMessage() {
+    ws.send(document.getElementById("chat").value);
+    
+    //ws.send(document.getElementById("chat").value.(JSON.stringify('it works! Yeeee! :'));
+   
+  }
 
+   
 </script>
 {{!-- {
     {

@@ -27,8 +27,22 @@ const app_name = require("./package.json").name;
 const debug = require("debug")(`${app_name}:${path.basename(__filename).split(".")[0]}`);
 //express server instance
 const app = express();
-//setup the ws server
+
+//setup the ws server 
+
 const expressWs = require("express-ws")(app);
+
+const WebSocket = require('ws')
+
+const wss = new WebSocket.Server({ port: 3001 })
+
+wss.on('connection', ws => {
+  ws.on('message', message => {
+    console.log(`Received message => ${message}`)
+  })
+  ws.send('message')
+})
+
 
 // Middleware Setup
 app.use(logger("dev"));

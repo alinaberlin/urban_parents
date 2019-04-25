@@ -1,5 +1,6 @@
 //It works with routers, too, this time at /ws-stuff/echo:
 const express = require("express");
+
 const router = express.Router();
 const ensureLogin = require("connect-ensure-login");
 
@@ -14,4 +15,6 @@ router.ws("/message", function(ws, req) {
     });
 });
 
+
 module.exports = router;
+
