@@ -28,13 +28,15 @@
 
       let parents = response.data
       parents.forEach((parent) => {
-        let coordinate = parent.location.Coordinates
-        var popup = new mapboxgl.Popup({ offset: popupOffsets, className: 'my-class' })
-          .setHTML(`<h4>${parent.firstName} ${parent.email} ${parent.language} ${parent.nationality}</h4>`)
-        var marker = new mapboxgl.Marker({ color: 'red', draggable: true })
-          .setLngLat(coordinate)
-          .setPopup(popup)
-          .addTo(map);
+        if (parent.location) {
+          let coordinate = parent.location.Coordinates;
+          var popup = new mapboxgl.Popup({ offset: popupOffsets, className: 'my-class' })
+            .setHTML(`<h4>${parent.firstName} ${parent.email} ${parent.language} ${parent.nationality}</h4>`)
+          var marker = new mapboxgl.Marker({ color: 'red', draggable: true })
+            .setLngLat(coordinate)
+            .setPopup(popup)
+            .addTo(map);
+        }
       })
     })
 </script>
