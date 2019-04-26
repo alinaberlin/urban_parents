@@ -18,9 +18,23 @@ router.get("/registration", ensureLogin.ensureLoggedIn(), (req, res, next) => {
 });
 
 router.get("/parent", ensureLogin.ensureLoggedIn(), async (req, res, next) => {
-    const currentParent = req.user;
-    const isLoggedIn = req.user ? true : false;
-    res.render("parent_details", { parent: currentParent, isLoggedIn: isLoggedIn });
+  const currentParent = req.user;
+  const isLoggedIn = req.user ? true : false;
+  res.render("parent_details", { parent: currentParent, isLoggedIn: isLoggedIn });
+});
+
+router.get("/matching", ensureLogin.ensureLoggedIn(), async (req, res, next) => {
+  const currentParent = req.user;
+  const isLoggedIn = req.user ? true : false;
+  Parent.find({ language: currentParent.language, age: currentParent.age }).then(response => {
+    console.log('Response', response);
+    
+    const result = response.filter(el => {
+      console.log(el._id, currentParent._id)
+      return el._id.toString() != currentParent._id.toString()
+    })
+    res.render("matches", { matches: result, isLoggedIn: isLoggedIn });
+  });
 });
 router.post("/parent", ensureLogin.ensureLoggedIn(), async (req, res, next) => {
   const currentParent = req.user;
