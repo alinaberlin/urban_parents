@@ -6,7 +6,7 @@
   <button onclick="sendMessage()">Send</button>
 </div>
 <script>
-  const wsUrl = 'ws://' + window.location.host + ':3001'
+  const wsUrl = 'wss://' + window.location.host + ':3001'
   const ws = new WebSocket(wsUrl)
 
   ws.onmessage = function (e) {
