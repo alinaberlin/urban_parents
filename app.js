@@ -14,7 +14,7 @@ const MongoStore = require("connect-mongo")(session);
 const flash = require("connect-flash");
 const passport = require("passport");
 
-const mongoConnectURI = process.env.ENVIRONMENT === "dev" ? "mongodb://localhost/urban-parents" : process.env.MONGODB_URI;
+const mongoConnectURI = process.env.ENVIRONMENT === "dev" ? "mongodb://localhost/urban-parents" : 'mongodb://heroku_8h5bjwnz:viqjgetookvbbs9dftg56ilkpe@ds147566.mlab.com:47566/heroku_8h5bjwnz';
 
 //initialization of mongodb conection
 mongoose
