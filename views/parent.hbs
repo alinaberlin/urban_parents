@@ -49,31 +49,7 @@
   </form>
 </div> --}}
 
-
-
-<form action="/signup" method="post">
- <div class="form-group">
-   <label for="username">User Name:</label>
-   <input type="text" class="form-control" name="username">
-   <p>{{message}} </p>
- </div>
-
- <div class="form-group">
-   <label for="password">Password:</label>
-   <input type="password" class="form-control" name="password">
- </div>
-
-
- <div class="form-group">
-   <label for="email">Email</label>
-   <input type="text" class="form-control" name="email">
- </div>
-
-
- <button type="submit" class="btn btn-primary">signup</button>
-</form>'''
-
-'''<div class="form-group">
+<div class="form-group">
  <form action="/parent" method="post">
 
    <div class="form-group">
@@ -125,13 +101,13 @@
 
    <div class="form-group">
      <label for="address">Address</label>
-     <input type="string" step="any" name="address" value="{{parent.address}}">
+     <input type="string" step="any" name="address" value="{{parent.location.Address}}">
      <label for="postcode">Postcode</label>
-     <input type="string" step="any" name="postcode" value="{{parent.postcode}}">
+     <input type="string" step="any" name="postcode" value="{{parent.location.Postcode}}">
      <label for="city">City</label>
-     <input type="text" step="any" name="city" value="{{parent.city}}">
+     <input type="text" step="any" name="city" value="{{parent.location.City}}">
      <label for="country">Country</label>
-     <input type="text" step="any" name="country" value="{{parent.country}}">
+     <input type="text" step="any" name="country" value="{{parent.location.Country}}">
    </div>
    <!-- Location definition start -->
 
@@ -163,4 +139,4 @@
 
    <button type='submit' class="btn btn-primary"> Submit</button>
  </form>
-</div>'''
+</div>
