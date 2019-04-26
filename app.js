@@ -91,58 +91,33 @@ app.use("/", api);
 const WebSocket = require('ws')
 
 //send email with nodemailer module 
-    async function main(){
 
-    let transporter = nodemailer.createTransport({
-        host: "smtp.ethereal.email",
-        port: 587,
-        secure: false, // true for 465, false for other ports
-        auth: {
-          user: testAccount.user, // generated ethereal user
-          pass: testAccount.pass // generated ethereal password
-        }
-      });
-      let info = await transporter.sendMail({
-        from: '"Fred Foo 👻" <foo@example.com>', // sender address
-        to: "bar@example.com, baz@example.com", // list of receivers
-        subject: "Hello ✔", // Subject line
-        text: "Hello world?", // plain text body
-        html: "<b>Hello world?</b>" // html body
-      });
-    
-      console.log("Message sent: %s", info.messageId);
-      // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-    
-      // Preview only available when sending through an Ethereal account
-      console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-      // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+const nodemailer = require('nodemailer');
+
+let transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false,
+    requireTLS: true,
+    auth: {
+        user: 'your.gmail.account@gmail.com',
+        pass: 'your.password'
     }
-    
-    main().catch(console.error);
+});
 
+let mailOptions = {
+    from: 'your.gmail.account@gmail.com',
+    to: 'receivers.email@domain.com',
+    subject: 'Test',
+    text: 'Hello World!'
+};
 
-// let transporter = nodemailer.createTransport({
-//     service: 'gmail',
-//     auth: {
-//       user: 'youremail@gmail.com',
-//       pass: 'yourpassword'
-//     }
-//   });
-  
-//   let mailOptions = {
-//     from: 'youremail@gmail.com',
-//     to: 'myfriend@yahoo.com',
-//     subject: 'Sending Email using Node.js',
-//     text: 'That was easy!'
-//   };
-  
-//   transporter.sendMail(mailOptions, function(error, info){
-//     if (error) {
-//       console.log(error);
-//     } else {
-//       console.log('Email sent: ' + info.response);
-//     }
-//   });
+transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+        return console.log(error.message);
+    }
+    console.log('success');
+});
 
 const wss = new WebSocket.Server({ port: 3001 })
 
