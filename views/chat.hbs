@@ -6,7 +6,7 @@
   <button onclick="sendMessage()">Send</button>
 </div>
 <script>
-  const wsUrl = 'wss://' + window.location.host + ':3001'
+  const wsUrl = 'ws://localhost:3001'
   const ws = new WebSocket(wsUrl)
 
   ws.onmessage = function (e) {
@@ -15,7 +15,7 @@
     pEl.innerText = e.data;
     document.getElementById("messages").appendChild(pEl);
   }
-  
+
 
   ws.onopen = function () {
     console.log('opening...')
@@ -29,7 +29,7 @@
     ws.send(document.getElementById("chat").value);
   }
 
-   
+
 </script>
 {{!-- {
     {
