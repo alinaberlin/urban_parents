@@ -1,12 +1,16 @@
 <div>
-  <p>name: {{child.name}}</p>
-  <p>language: {{child.language}}</p>
-  <p>age: {{child.age}}</p>
-  <p>gender: {{child.gender}}</p>
-  <p>picture :{{child.picture}}<p>
+  <p>name: {{addedChild.name}}</p>
+  <p>language: {{addedChild.language}}</p>
+  <p>age: {{addedChild.age}}</p>
+  <p>gender: {{addedChild.gender}}</p>
+  <p>picture :{{addedChild.picture}}<p>
       <ul>
-        {{#each matches_child}}
-        <li>`Your match is: Name: {{ this.name }}`</li>
+        {{#each parents}}
+        <li>`Your match is: Name: {{ this.firstName }}`</li>
+        <a href="mailto:{{ this.email }}" class="btn btn-primary">Email the parents of child matched</a>
+        {{#each this.child}}
+        {{this.name}}
+        {{/each}}
         {{/each}}
       </ul>
 </div>

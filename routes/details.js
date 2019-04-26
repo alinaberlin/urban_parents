@@ -130,16 +130,27 @@ router.post("/child/add", (req, res, next) => {
     age,
     gender
   });
-  newChild.save().then(child => {
-    Child.find({ age: age })
-      .then(matches_child => {
-        matches_child.pop();
-        res.render("child_details", { child, matches_child });
+  newChild.save().then(addedChild => {
+    Parent.findOneAndUpdate(
+      { _id: req.user._id },
+      { $push: { child: addedChild } }
+    ).then(() => console.log("child added"));
+
+    Parent.find()
+      .populate("child")
+      .then(parents => {
+        parents = parents.filter(parent => {
+          const childAge = parent.child.map(child => child.age);
+
+          return (
+            childAge.includes(addedChild.age) &&
+            parent._id.toString() != req.user._id.toString()
+          );
+        });
+        res.render("child_details", { parents });
       })
       .catch(error => {
         console.log(error);
-
-        res.render("child_details", { child });
       });
   });
 });
