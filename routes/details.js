@@ -9,18 +9,21 @@ const { getReverseGeoCoding } = require("../lib/services");
 
 // parent route
 router.get("/registration", ensureLogin.ensureLoggedIn(), (req, res, next) => {
-    const currentParent = req.user;
-    const isLoggedIn = req.user ? true : false;
-    res.render("parent", {
-        parent: currentParent,
-        isLoggedIn: isLoggedIn
-    });
+  const currentParent = req.user;
+  const isLoggedIn = req.user ? true : false;
+  res.render("parent", {
+    parent: currentParent,
+    isLoggedIn: isLoggedIn
+  });
 });
 
 router.get("/parent", ensureLogin.ensureLoggedIn(), async (req, res, next) => {
-    const currentParent = req.user;
-    const isLoggedIn = req.user ? true : false;
-    res.render("parent_details", { parent: currentParent, isLoggedIn: isLoggedIn });
+  const currentParent = req.user;
+  const isLoggedIn = req.user ? true : false;
+  res.render("parent_details", {
+    parent: currentParent,
+    isLoggedIn: isLoggedIn
+  });
 });
 router.post("/parent", ensureLogin.ensureLoggedIn(), async (req, res, next) => {
   const currentParent = req.user;
@@ -72,9 +75,16 @@ router.post("/parent", ensureLogin.ensureLoggedIn(), async (req, res, next) => {
       pictureUrl,
       location
     }
-  ).then(() => {
-    console.log("edited");
-    res.redirect("/");
+  ).then(parent => {
+    Parent.find({ language: language })
+      .then(matches => {
+        matches.pop();
+        res.render("parent_details", { parent, matches });
+      })
+      .catch(error => {
+        console.log(error);
+        res.render("parent_details", { parent });
+      });
   });
 
   //   const newParent = Object.assign(currentParent, {
@@ -90,21 +100,21 @@ router.post("/parent", ensureLogin.ensureLoggedIn(), async (req, res, next) => {
   //     pictureUrl
   //   });
 
-  //   newParent
-  //     .save()
-  //     .then(parent => {
-  //       Parent.find({ language: language })
-  //         .then(matches => {
-  //           res.render("parent_details", { parent, matches });
-  //         })
-  //         .catch(error => {
-  //           console.log(error);
-  //           res.render("parent_details", { parent });
-  //         });
-  //     })
-  //     .catch(error => {
-  //       console.log(error);
-  //     });
+  // newParent
+  //   .save()
+  //   .then(parent => {
+  //     Parent.find({ language: language })
+  //       .then(matches => {
+  //         res.render("parent_details", { parent, matches });
+  //       })
+  //       .catch(error => {
+  //         console.log(error);
+  //         res.render("parent_details", { parent });
+  //       });
+  //   })
+  //   .catch(error => {
+  //     console.log(error);
+  //   });
 });
 
 //child route
@@ -113,44 +123,44 @@ router.get("/parent/:parentId/child", (req, res, next) => {
 });
 
 router.post("/child/add", (req, res, next) => {
-    const { name, languages, age, gender } = req.body;
-    const newChild = new Child({
-        name,
-        languages,
-        age,
-        gender
-    });
-    newChild.save().then(child => {
-        Child.find({ age: age })
-            .then(matches_child => {
-                res.render("child_details", { child, matches_child });
-            })
-            .catch(error => {
-                console.log(error);
+  const { name, languages, age, gender } = req.body;
+  const newChild = new Child({
+    name,
+    languages,
+    age,
+    gender
+  });
+  newChild.save().then(child => {
+    Child.find({ age: age })
+      .then(matches_child => {
+        res.render("child_details", { child, matches_child });
+      })
+      .catch(error => {
+        console.log(error);
 
-                res.render("child_details", { child });
-            });
-    });
+        res.render("child_details", { child });
+      });
+  });
 });
 //activity
 router.get("/parent/:parentId/activity", (req, res, next) => {
-    res.render("activity");
+  res.render("activity");
 });
 router.post("/activity/add", (req, res, next) => {
-    const { location, activityType, time } = req.body;
-    const newActivity = new Activity({
-        location,
-        activityType,
-        time
+  const { location, activityType, time } = req.body;
+  const newActivity = new Activity({
+    location,
+    activityType,
+    time
+  });
+  newActivity
+    .save()
+    .then(activity => {
+      res.render("activity_details", activity);
+    })
+    .catch(error => {
+      console.log(error);
     });
-    newActivity
-        .save()
-        .then(activity => {
-            res.render("activity_details", activity);
-        })
-        .catch(error => {
-            console.log(error);
-        });
 });
 
 module.exports = router;

@@ -14,7 +14,7 @@
   <button onclick="addActivity()">Add activity</button>
   <ul>
     {{#each matches}}
-    <li>{{ this.firstName }} {{ this.lastName }}</li>
+    <li>`Your match is: First Name: {{ this.firstName }} Last Name: {{ this.lastName }}`</li>
     {{/each}}
   </ul>
   <div id='addChild' style="visibility:hidden;">
