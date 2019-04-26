@@ -133,6 +133,7 @@ router.post("/child/add", (req, res, next) => {
   newChild.save().then(child => {
     Child.find({ age: age })
       .then(matches_child => {
+        matches_child.pop();
         res.render("child_details", { child, matches_child });
       })
       .catch(error => {
