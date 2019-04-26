@@ -135,7 +135,6 @@ router.post("/child/add", (req, res, next) => {
       { _id: req.user._id },
       { $push: { child: addedChild } }
     ).then(() => console.log("child added"));
-
     Parent.find()
       .populate("child")
       .then(parents => {
@@ -147,8 +146,9 @@ router.post("/child/add", (req, res, next) => {
             parent._id.toString() != req.user._id.toString()
           );
         });
-        res.render("child_details", { parents });
+        res.render("child_details", { parents, addedChild });
       })
+
       .catch(error => {
         console.log(error);
       });
