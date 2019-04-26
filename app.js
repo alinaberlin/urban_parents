@@ -91,10 +91,13 @@ const WebSocket = require('ws')
 
 const wss = new WebSocket.Server({ port: 3001 })
 
+wss.broadcast = data => {
+  wss.clients.forEach(client => client.send(data))
+}
 wss.on('connection', ws => {
   ws.on('message', message => {
     console.log(`Received message => ${message}`)
-    ws.send(message)
+    wss.broadcast(message)
   })
 
 })
