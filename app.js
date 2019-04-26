@@ -92,7 +92,7 @@ const WebSocket = require('ws')
 
 //send email with nodemailer module 
     async function main(){
-
+      let testAccount = await nodemailer.createTestAccount();
     let transporter = nodemailer.createTransport({
         host: "smtp.ethereal.email",
         port: 587,
